@@ -12,6 +12,9 @@ namespace NoHope.RunTime.PropsScripts
 
         [BoxGroup("Components"), SerializeField]
         private FixedJoint2D _fixedJoint = null;
+
+        [BoxGroup("Components"), SerializeField]
+        private Rigidbody2D _myRigidbody = null;
         #endregion
 
         //-------------------------------------------------------------------
@@ -50,6 +53,7 @@ namespace NoHope.RunTime.PropsScripts
             {
                 TriggerButton btn = collision.GetComponent<TriggerButton>();
                 btn.TriggerEffect();
+                _myRigidbody.bodyType = RigidbodyType2D.Static;
             }
         }
         #endregion

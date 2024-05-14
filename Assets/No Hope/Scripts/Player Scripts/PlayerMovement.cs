@@ -294,7 +294,7 @@ namespace NoHope.RunTime.PlayerScripts
 				IsJumping = false;
 
 				_isJumpFalling = true;
-                Base.MyAnimator.SetBool("isFalling", _isJumpFalling);
+                //Base.MyAnimator.SetBool("isFalling", _isJumpFalling);
             }
 
 			if (IsWallJumping && Time.time - _wallJumpStartTime > Base.Data.WallJumpTime)
@@ -307,7 +307,7 @@ namespace NoHope.RunTime.PlayerScripts
 				_isJumpCut = false;
 
 				_isJumpFalling = false;
-                Base.MyAnimator.SetBool("isFalling", _isJumpFalling);
+                //Base.MyAnimator.SetBool("isFalling", _isJumpFalling);
             }
 
 			if (!IsDashing)
@@ -345,9 +345,9 @@ namespace NoHope.RunTime.PlayerScripts
 				force -= Base.MyRigidbody.velocity.y;
 
             Base.MyRigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-            Base.MyAnimator.SetTrigger("jump");
+            //Base.MyAnimator.SetTrigger("jump");
             IsGrounded = false;
-            Base.MyAnimator.SetBool("isGrounded", false);
+            //Base.MyAnimator.SetBool("isGrounded", false);
         }
 		private void WallJump(int dir)
 		{
@@ -388,7 +388,7 @@ namespace NoHope.RunTime.PlayerScripts
 
 				StartCoroutine(nameof(StartDash), _lastDashDir);
 
-				Base.MyAnimator.SetTrigger("dash");
+				//Base.MyAnimator.SetTrigger("dash");
 			}
 		}
 
@@ -468,7 +468,7 @@ namespace NoHope.RunTime.PlayerScripts
 				{
 					LastOnGroundTime = Base.Data.CoyoteTime;
 					IsGrounded = true;
-                    Base.MyAnimator.SetBool("isGrounded",true);
+                    //Base.MyAnimator.SetBool("isGrounded",true);
 				}
 
 				if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)
