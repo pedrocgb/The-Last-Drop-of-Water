@@ -1,4 +1,4 @@
-using NoHope.RunTime.StateMachine;
+//using NoHope.RunTime.StateMachine;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace NoHope.RunTime.EnemyScripts
         private Animator _myAnimator = null;
         public Animator MyAnimator { get { return _myAnimator; } }
 
-        private EnemyMoveState _moveState = null;
+        //private EnemyMoveState _moveState = null;
         #endregion
 
         //-------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace NoHope.RunTime.EnemyScripts
         {
             _player = FindObjectOfType<PlayerBase>();
             _currentHealth = _maxHealth;
-            _moveState = GetComponent<EnemyMoveState>();
+            //_moveState = GetComponent<EnemyMoveState>();
         }
         #endregion
 
