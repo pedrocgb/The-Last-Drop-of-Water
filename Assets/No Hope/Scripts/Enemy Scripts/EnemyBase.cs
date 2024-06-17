@@ -34,18 +34,41 @@ namespace NoHope.RunTime.EnemyScripts
         [SerializeField]
         private Animator _myAnimator = null;
         public Animator MyAnimator { get { return _myAnimator; } }
+        #endregion
 
-        //private EnemyMoveState _moveState = null;
+        #region State Machine
+        public EnemyStateMachine StateMachine { get; set; }
+        public EnemyIdleState IdleState { get; set; }
+        public EnemyChaseState ChaseState { get; set; }
+        public EnemyAttackState AttackState { get; set; }
         #endregion
 
         //-------------------------------------------------------------------
 
         #region Unity Methods
+        private void Awake()
+        {
+            StateMachine = new EnemyStateMachine();
+
+            IdleState = new EnemyIdleState(this, StateMachine);
+            ChaseState = new EnemyChaseState(this, StateMachine);
+            AttackState = new EnemyAttackState(this, StateMachine);
+        }
         private void Start()
         {
             _player = FindObjectOfType<PlayerBase>();
             _currentHealth = _maxHealth;
-            //_moveState = GetComponent<EnemyMoveState>();
+
+            StateMachine.Initialize(IdleState);
+        }
+
+        private void Update()
+        {
+            StateMachine.CurrentEnemyState.FrameUpdate();
+        }
+        private void FixedUpdate()
+        {
+            StateMachine.CurrentEnemyState.PhysicsUpdate();
         }
         #endregion
 
