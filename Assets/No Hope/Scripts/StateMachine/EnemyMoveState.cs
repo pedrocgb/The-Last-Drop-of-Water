@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 namespace NoHope.RunTime.StateMachine
 {
     [RequireComponent(typeof(EnemyBase))]
-    public class EnemyMoveState : State
+    public class EnemyMoveState : MonoBehaviour
     {
         [BoxGroup("Movement")]
         [SerializeField]
@@ -55,56 +55,50 @@ namespace NoHope.RunTime.StateMachine
         private float _startPosition;
         private bool _reachedDesiredPosition = false;
 
-        protected override void Start()
+        protected  void Start()
         {
             _startPosition = GetCartesianPoint;
             _targetPosition = _startPosition + _desiredPosition;
         }
 
-        protected override void EnterState()
+        protected  void EnterState()
         {
             
         }
 
-        protected override void Update()
+        protected  void Update()
         {
             
         }
 
-        protected override void FixedUpdate()
+        protected  void FixedUpdate()
         {
             MoveEnemy();
         }
 
-        protected override void ExitState()
+        protected  void ExitState()
         {
         }
 
         private void MoveEnemy()
         {
-            if (_aiStyle == GameEnums.MovementAi.Complex)
-            {
 
-            }
-            else
+            if (!_reachedDesiredPosition && _waitTimeStamp <= Time.time)
             {
-                if (!_reachedDesiredPosition && _waitTimeStamp <= Time.time)
+                //MyRigidbody.MovePosition(MyRigidbody.position + Direction * _movementSpeed * Time.fixedDeltaTime);
+                if (GetCartesianPoint >= _targetPosition)
                 {
-                    MyRigidbody.MovePosition(MyRigidbody.position + Direction * _movementSpeed * Time.fixedDeltaTime);
-                    if (GetCartesianPoint >= _targetPosition)
-                    {
-                        _reachedDesiredPosition = true;
-                        _waitTimeStamp = Time.time + _waitTimer;
-                    }
+                    _reachedDesiredPosition = true;
+                    _waitTimeStamp = Time.time + _waitTimer;
                 }
-                else if (_reachedDesiredPosition && _waitTimeStamp <= Time.time)
+            }
+            else if (_reachedDesiredPosition && _waitTimeStamp <= Time.time)
+            {
+                //MyRigidbody.MovePosition(MyRigidbody.position + (-Direction) * _movementSpeed * Time.fixedDeltaTime);
+                if (GetCartesianPoint <= _startPosition)
                 {
-                    MyRigidbody.MovePosition(MyRigidbody.position + (-Direction) * _movementSpeed * Time.fixedDeltaTime);
-                    if (GetCartesianPoint <= _startPosition)
-                    {
-                        _reachedDesiredPosition = false;
-                        _waitTimeStamp = Time.time + _waitTimer;
-                    }
+                    _reachedDesiredPosition = false;
+                    _waitTimeStamp = Time.time + _waitTimer;
                 }
             }
         }
