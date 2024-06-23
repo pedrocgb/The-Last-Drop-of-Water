@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7512ea83d9ca3d4089b80c27e97e6ff, type: 3}
+  m_Name: Tractor Dash State
+  m_EditorClassIdentifier: 
+  _dashSpeed: 20
+  _dashDuration: 1.5
+  _idleState: {fileID: 11400000, guid: 1561887c94aeb9b448e2bb9ed48aea62, type: 2}
+  _stunnedState: {fileID: 0}

@@ -43,20 +43,24 @@ namespace NoHope.RunTime.PlayerScripts
 		public float LastPressedJumpTime { get; private set; }
 		public float LastPressedDashTime { get; private set; }
 
-		[Header("Checks")]
+		[BoxGroup("Ground Checks")]
 		[SerializeField]
 		private Transform _groundCheckPoint;
-		[SerializeField]
+        [BoxGroup("Ground Checks")]
+        [SerializeField]
 		private Vector2 _groundCheckSize = new Vector2(0.49f, 0.03f);
-		[SerializeField]
+        [BoxGroup("Ground Checks")]
+        [SerializeField]
 		private Transform _frontWallCheckPoint;
-		[SerializeField]
+        [BoxGroup("Ground Checks")]
+        [SerializeField]
 		private Transform _backWallCheckPoint;
-		[SerializeField]
+        [BoxGroup("Ground Checks")]
+        [SerializeField]
 		private Vector2 _wallCheckSize = new Vector2(0.5f, 1f);
 
-		[Header("Layers & Tags")]
-		[SerializeField]
+        [BoxGroup("Layers and Tags")]
+        [SerializeField]
 		private LayerMask _groundLayer;
 		#endregion
 
@@ -320,18 +324,18 @@ namespace NoHope.RunTime.PlayerScripts
 					_isJumpFalling = false;
 					Jump();
 				}
-				else if (CanWallJump() && LastPressedJumpTime > 0)
-				{
-					IsWallJumping = true;
-					IsJumping = false;
-					_isJumpCut = false;
-					_isJumpFalling = false;
+				//else if (CanWallJump() && LastPressedJumpTime > 0)
+				//{
+				//	IsWallJumping = true;
+				//	IsJumping = false;
+				//	_isJumpCut = false;
+				//	_isJumpFalling = false;
 
-					_wallJumpStartTime = Time.time;
-					_lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
+				//	_wallJumpStartTime = Time.time;
+				//	_lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
-					WallJump(_lastWallJumpDir);
-				}
+				//	WallJump(_lastWallJumpDir);
+				//}
 			}
 
 		}
@@ -471,15 +475,15 @@ namespace NoHope.RunTime.PlayerScripts
                     //Base.MyAnimator.SetBool("isGrounded",true);
 				}
 
-				if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)
-						|| (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)) && !IsWallJumping)
-					LastOnWallRightTime = Base.Data.CoyoteTime;
+				//if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)
+				//		|| (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)) && !IsWallJumping)
+				//	LastOnWallRightTime = Base.Data.CoyoteTime;
 
-				if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)
-					|| (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)) && !IsWallJumping)
-					LastOnWallLeftTime = Base.Data.CoyoteTime;
+				//if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)
+				//	|| (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)) && !IsWallJumping)
+				//	LastOnWallLeftTime = Base.Data.CoyoteTime;
 
-				LastOnWallTime = Mathf.Max(LastOnWallLeftTime, LastOnWallRightTime);
+				//LastOnWallTime = Mathf.Max(LastOnWallLeftTime, LastOnWallRightTime);
 			}
 		}
 		public void CheckDirectionToFace(bool isMovingRight)
@@ -534,8 +538,8 @@ namespace NoHope.RunTime.PlayerScripts
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
 			Gizmos.color = Color.blue;
-			Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
-			Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
+			//Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
+			//Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
 		}
 		#endregion
 	}

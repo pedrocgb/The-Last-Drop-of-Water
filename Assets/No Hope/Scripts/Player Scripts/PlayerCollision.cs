@@ -74,7 +74,7 @@ namespace NoHope.RunTime.PlayerScripts
             if (collision.CompareTag("Dragable Trigger") && !_isAttached)
             {
                 _canAttach = true;
-                _currentProp = collision.GetComponent<DragableObject>();
+                _currentProp = collision.GetComponentInParent<DragableObject>();
             }
 
             if (collision.CompareTag("Portal"))

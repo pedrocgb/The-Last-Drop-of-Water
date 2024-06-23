@@ -17,6 +17,13 @@ namespace NoHope.RunTime.PropsScripts
         private GameEvents _untriggerEvent = null;
         private bool _isPressed = false;
 
+        [BoxGroup("Collision")]
+        [SerializeField]
+        private LayerMask _overlapLayermask = 0;
+        [BoxGroup("Collision")]
+        [SerializeField]
+        private float _overlapRadius = 5f;
+
         [BoxGroup("Components")]
         [SerializeField]
         private SpriteRenderer _myRenderer = null;
@@ -30,21 +37,55 @@ namespace NoHope.RunTime.PropsScripts
             if (_isPressed)
                 return;
 
+            _isPressed = true;
             _triggerEvent.Raise();
             _myRenderer.color = Color.green;
-            _isPressed = true;
         }
         public void UntriggerEffect()
         {
             if (!_isPressed)
                 return;
 
+            _isPressed = false;
             _untriggerEvent.Raise();
             _myRenderer.color = Color.red;
-            _isPressed = false;
         }
         #endregion
-        
+
         //-------------------------------------------------------------------
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Player") ||
+                collision.CompareTag("Dragable Object"))
+            {
+                TriggerEffect();
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Player") ||
+                collision.CompareTag("Dragable Object"))
+            {
+                Debug.Log("Work");
+                Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, _overlapRadius, _overlapLayermask);
+                Debug.Log(cols.Length);
+                if (cols == null ||
+                    cols.Length <= 0)
+                    UntriggerEffect();
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _overlapRadius);
+        }
     }
 }

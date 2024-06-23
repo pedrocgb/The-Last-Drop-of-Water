@@ -15,7 +15,6 @@ namespace NoHope.RunTime.PropsScripts
         [SerializeField]
         protected Transform _destination = null;
 
-
         [BoxGroup("Components")]
         [SerializeField]
         protected SpriteRenderer _myRenderer = null;
@@ -30,7 +29,7 @@ namespace NoHope.RunTime.PropsScripts
         //-------------------------------------------------------------------
 
         #region Unity Methods
-        private void Start()
+        protected virtual void Start()
         {
             _player = FindObjectOfType<PlayerBase>();
         }

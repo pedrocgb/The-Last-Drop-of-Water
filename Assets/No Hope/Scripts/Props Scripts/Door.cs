@@ -1,3 +1,4 @@
+using NoHope.RunTime.Events;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +11,18 @@ namespace NoHope.RunTime.PropsScripts
         #region Variables and Properties
         private bool _isOpen = false;
         public bool IsOpen { get { return _isOpen; } }
+
+        GameEventPlayer _gameEventPlayer = null;
         #endregion
+
+        //-------------------------------------------------------------------
+
+        protected override void Start()
+        {
+            base.Start();
+
+            _gameEventPlayer = GetComponent<GameEventPlayer>();
+        }
 
         //-------------------------------------------------------------------
 
@@ -32,5 +44,11 @@ namespace NoHope.RunTime.PropsScripts
 
         //-------------------------------------------------------------------
 
+        public override void Teleport()
+        {
+            base.Teleport();
+
+            _gameEventPlayer.GetEventByName("Start Tractor Boss").Raise();
+        }
     }
 }

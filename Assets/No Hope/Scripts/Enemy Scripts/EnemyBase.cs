@@ -1,8 +1,8 @@
-//using NoHope.RunTime.StateMachine;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NoHope.RunTime.AI;
 
 namespace NoHope.RunTime.EnemyScripts
 {
@@ -22,6 +22,16 @@ namespace NoHope.RunTime.EnemyScripts
 
         private string _currentAnimState = string.Empty;
 
+        [BoxGroup("Turn")]
+        [SerializeField]
+        private bool _facesPlayer = false;
+        public bool FacesPlayer { get { return _facesPlayer; } set { _facesPlayer = value; } }
+        [BoxGroup("Turn")]
+        [SerializeField]
+        [ShowIf("_facesPlayer")]
+        private bool _facingLeft = false;
+        public bool FacingLeft { get { return _facingLeft; } }
+
         [BoxGroup("Attack")]
         [SerializeField]
         private float _collisionDamage = 0;
@@ -34,13 +44,13 @@ namespace NoHope.RunTime.EnemyScripts
         [SerializeField]
         private Animator _myAnimator = null;
         public Animator MyAnimator { get { return _myAnimator; } }
+        [BoxGroup("Components")]
+        [SerializeField]
+        private SpriteRenderer _mySpriteRender = null;
         #endregion
 
         #region State Machine
-        public EnemyStateMachine StateMachine { get; set; }
-        public EnemyIdleState IdleState { get; set; }
-        public EnemyChaseState ChaseState { get; set; }
-        public EnemyAttackState AttackState { get; set; }
+
         #endregion
 
         //-------------------------------------------------------------------
@@ -48,34 +58,22 @@ namespace NoHope.RunTime.EnemyScripts
         #region Unity Methods
         private void Awake()
         {
-            StateMachine = new EnemyStateMachine();
 
-            IdleState = new EnemyIdleState(this, StateMachine);
-            ChaseState = new EnemyChaseState(this, StateMachine);
-            AttackState = new EnemyAttackState(this, StateMachine);
         }
-        private void Start()
+        protected virtual void Start()
         {
             _player = FindObjectOfType<PlayerBase>();
             _currentHealth = _maxHealth;
+            if (_facesPlayer)
+                _mySpriteRender.flipX = _facingLeft;
 
-            StateMachine.Initialize(IdleState);
         }
 
         private void Update()
         {
-            StateMachine.CurrentEnemyState.FrameUpdate();
+            if (_facesPlayer)
+                FlipSprite();
         }
-        private void FixedUpdate()
-        {
-            StateMachine.CurrentEnemyState.PhysicsUpdate();
-        }
-        #endregion
-
-        //-------------------------------------------------------------------
-
-        #region State Methods
-
         #endregion
 
         //-------------------------------------------------------------------
@@ -108,6 +106,20 @@ namespace NoHope.RunTime.EnemyScripts
 
             MyAnimator.Play(AnimationState);
             _currentAnimState = AnimationState;
+        }
+
+        private void FlipSprite()
+        {
+            if (transform.position.x >= _player.transform.position.x && !_facingLeft)
+            {
+                _facingLeft = true;
+                _mySpriteRender.flipX = true;
+            }
+            else if (transform.position.x < _player.transform.position.x && _facingLeft)
+            {
+                _facingLeft = false;
+                _mySpriteRender.flipX = false;
+            }
         }
 
         //-------------------------------------------------------------------

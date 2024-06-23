@@ -15,6 +15,7 @@ namespace NoHope.RunTime.PropsScripts
 
         [BoxGroup("Components"), SerializeField]
         private Rigidbody2D _myRigidbody = null;
+        public Rigidbody2D MyRigidbody { get { return _myRigidbody; } }
         #endregion
 
         //-------------------------------------------------------------------
@@ -41,20 +42,6 @@ namespace NoHope.RunTime.PropsScripts
             Debug.Log("Dettach");
             _fixedJoint.enabled = true;
             _fixedJoint.connectedBody = null;
-        }
-        #endregion
-
-        //-------------------------------------------------------------------
-
-        #region Collision Methods
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Button Trigger"))
-            {
-                TriggerButton btn = collision.GetComponent<TriggerButton>();
-                btn.TriggerEffect();
-                _myRigidbody.bodyType = RigidbodyType2D.Static;
-            }
         }
         #endregion
 

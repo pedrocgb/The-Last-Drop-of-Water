@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7549021288578819112}
   - component: {fileID: 2155955453151828025}
   - component: {fileID: 3175034008978732630}
+  - component: {fileID: 121549852038212681}
   m_Layer: 0
   m_Name: Saw Enemy
   m_TagString: Enemy
@@ -135,8 +136,8 @@ MonoBehaviour:
   _damageble: 0
   _maxHealth: 0
   _collisionDamage: 15
-  _myRigidbody: {fileID: 0}
-  _myAnimator: {fileID: 0}
+  _myRigidbody: {fileID: 3175034008978732630}
+  _myAnimator: {fileID: 7549021288578819112}
 --- !u!95 &7549021288578819112
 Animator:
   serializedVersion: 5
@@ -220,3 +221,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &121549852038212681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569198216013950832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d6356946f0046459307b61bc692928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentState: {fileID: 11400000, guid: c4c23682ae9ea75428f228b47aadb82a, type: 2}

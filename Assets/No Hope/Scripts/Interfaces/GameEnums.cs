@@ -18,8 +18,7 @@ namespace NoHope.RunTime.Utilities
         public enum MovementAi
         {
             Horizontal,
-            Vertical,
-            Complex
+            Vertical
         }
     }
 }
