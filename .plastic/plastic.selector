@@ -1,4 +1,0 @@
-repository "The Last Drop of Water@Breezeblocks@cloud"
-  path "/"
-    br "/main"
-    co "/main"
